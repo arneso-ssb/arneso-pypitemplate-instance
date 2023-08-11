@@ -21,7 +21,7 @@
 
 ## Features
 
-- TODO dummy change
+- TODO
 
 ## Requirements
 
