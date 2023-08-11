@@ -34,6 +34,11 @@ jobs:
       PRE_COMMIT_COLOR: "always"
 
     steps:
+      - uses: GitHubSecurityLab/actions-permissions/monitor@v1
+        if: matrix.os != 'windows-latest'
+        with:
+          config: ${{ vars.PERMISSIONS_CONFIG }}
+
       - name: Check out the repository
         uses: actions/checkout@v3
 
