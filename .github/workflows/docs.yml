@@ -1,8 +1,8 @@
-name: Build and deploy static content to GitHub Pages
+name: Docs
 
 on:
   push:
-#    branches: ["main"]
+    branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -30,7 +30,7 @@ jobs:
         run: |
           pipx install --pip-args "-c .github/workflows/constraints.txt" poetry
           poetry --version
-      
+
       - name: Set up Python
         uses: actions/setup-python@v4.7.0
         with:
@@ -50,7 +50,6 @@ jobs:
         with:
           path: "docs/_build"
 
-
   deploy:
     environment:
       name: github-pages
@@ -60,7 +59,7 @@ jobs:
     steps:
       - name: Setup Pages
         uses: actions/configure-pages@v3
-        
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
