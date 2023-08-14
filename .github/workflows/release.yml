@@ -19,6 +19,11 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Set up Python
+        uses: actions/setup-python@v4.7.0
+        with:
+          python-version-file: "pyproject.toml"
+
       - name: Upgrade pip
         run: |
           pip install -c .github/workflows/constraints.txt pip
@@ -28,12 +33,6 @@ jobs:
         run: |
           pip install -c .github/workflows/constraints.txt poetry
           poetry --version
-
-      - name: Set up Python
-        uses: actions/setup-python@v4.7.0
-        with:
-          python-version-file: "pyproject.toml"
-          cache: "poetry"
 
       - name: Check if there is a parent commit
         id: check-parent-commit
