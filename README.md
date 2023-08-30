@@ -5,7 +5,6 @@
 [![Python Version](https://img.shields.io/pypi/pyversions/arneso-pypitemplate-instance)][pypi status]
 [![License](https://img.shields.io/pypi/l/arneso-pypitemplate-instance)][license]
 
-[![Read the documentation at https://arneso-pypitemplate-instance.readthedocs.io/](https://img.shields.io/readthedocs/arneso-pypitemplate-instance/latest.svg?label=Read%20the%20Docs)][read the docs]
 [![Documentation](https://github.com/arneso-ssb/arneso-pypitemplate-instance/actions/workflows/docs.yml/badge.svg)][documentation]
 [![Tests](https://github.com/arneso-ssb/arneso-pypitemplate-instance/workflows/Tests/badge.svg)][tests]
 [![Codecov](https://codecov.io/gh/arneso-ssb/arneso-pypitemplate-instance/branch/main/graph/badge.svg)][codecov]
@@ -15,7 +14,6 @@
 [![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)][poetry]
 
 [pypi status]: https://pypi.org/project/arneso-pypitemplate-instance/
-[read the docs]: https://arneso-pypitemplate-instance.readthedocs.io/
 [documentation]: https://arneso-ssb.github.io/arneso-pypitemplate-instance/
 [tests]: https://github.com/arneso-ssb/arneso-pypitemplate-instance/actions?workflow=Tests
 [codecov]: https://app.codecov.io/gh/arneso-ssb/arneso-pypitemplate-instance
@@ -41,7 +39,7 @@ $ pip install arneso-pypitemplate-instance
 
 ## Usage
 
-Please see the [Command-line Reference] for details.
+Please see the [Reference] for details.
 
 ## Contributing
 
@@ -72,4 +70,4 @@ This project was generated from [@cjolowicz]'s [Hypermodern Python Cookiecutter]
 
 [license]: https://github.com/arneso-ssb/arneso-pypitemplate-instance/blob/main/LICENSE
 [contributor guide]: https://github.com/arneso-ssb/arneso-pypitemplate-instance/blob/main/CONTRIBUTING.md
-[command-line reference]: https://arneso-pypitemplate-instance.readthedocs.io/en/latest/usage.html
+[reference]: https://arneso-ssb.github.io/arneso-pypitemplate-instance/reference.html
