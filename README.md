@@ -6,6 +6,7 @@
 [![License](https://img.shields.io/pypi/l/arneso-pypitemplate-instance)][license]
 
 [![Read the documentation at https://arneso-pypitemplate-instance.readthedocs.io/](https://img.shields.io/readthedocs/arneso-pypitemplate-instance/latest.svg?label=Read%20the%20Docs)][read the docs]
+[![Documentation](https://github.com/arneso-ssb/arneso-pypitemplate-instance/actions/workflows/docs.yml/badge.svg)][documentation]
 [![Tests](https://github.com/arneso-ssb/arneso-pypitemplate-instance/workflows/Tests/badge.svg)][tests]
 [![Codecov](https://codecov.io/gh/arneso-ssb/arneso-pypitemplate-instance/branch/main/graph/badge.svg)][codecov]
 
@@ -15,6 +16,7 @@
 
 [pypi status]: https://pypi.org/project/arneso-pypitemplate-instance/
 [read the docs]: https://arneso-pypitemplate-instance.readthedocs.io/
+[documentation]: https://arneso-ssb.github.io/arneso-pypitemplate-instance/
 [tests]: https://github.com/arneso-ssb/arneso-pypitemplate-instance/actions?workflow=Tests
 [codecov]: https://app.codecov.io/gh/arneso-ssb/arneso-pypitemplate-instance
 [pre-commit]: https://github.com/pre-commit/pre-commit
