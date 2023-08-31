@@ -152,11 +152,17 @@ jobs:
       - name: Print coverage report
         run: |
           pwd
-          ls
           cat coverage.xml
 
       - name: Upload coverage report
         uses: codecov/codecov-action@v3.1.4
+
+      - name: Override Coverage Source Path for Sonar running in GitHub Actions docker container
+        run: sed -i "s/<source>\/home\/runner\/work\/arneso-pypitemplate-instance<\/source>/<source>\/github\/workspace<\/source>/g" coverage.xml
+
+      - name: Print coverage report Sonar
+        run: |
+          cat coverage.xml
 
       - name: SonarCloud Scan
         env:
