@@ -157,6 +157,11 @@ jobs:
       - name: Upload coverage report
         uses: codecov/codecov-action@v3.1.4
 
+      - uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: coverage.xml
+
       - name: Override Coverage Source Path for Sonar running in GitHub Actions docker container
         run: sed -i "s/<source>\/home\/runner\/work\/arneso-pypitemplate-instance<\/source>/<source>\/github\/workspace<\/source>/g" coverage.xml
 
