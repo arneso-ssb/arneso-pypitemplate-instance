@@ -7,7 +7,7 @@
 
 [![Documentation](https://github.com/arneso-ssb/arneso-pypitemplate-instance/actions/workflows/docs.yml/badge.svg)][documentation]
 [![Tests](https://github.com/arneso-ssb/arneso-pypitemplate-instance/workflows/Tests/badge.svg)][tests]
-[![Codecov](https://codecov.io/gh/arneso-ssb/arneso-pypitemplate-instance/branch/main/graph/badge.svg)][codecov]
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=arneso-ssb_arneso-pypitemplate-instance&metric=coverage)][sonarcov]
 
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)][pre-commit]
 [![Black](https://img.shields.io/badge/code%20style-black-000000.svg)][black]
@@ -16,7 +16,7 @@
 [pypi status]: https://pypi.org/project/arneso-pypitemplate-instance/
 [documentation]: https://arneso-ssb.github.io/arneso-pypitemplate-instance/
 [tests]: https://github.com/arneso-ssb/arneso-pypitemplate-instance/actions?workflow=Tests
-[codecov]: https://app.codecov.io/gh/arneso-ssb/arneso-pypitemplate-instance
+[sonarcov]: https://sonarcloud.io/summary/overall?id=arneso-ssb_arneso-pypitemplate-instance
 [pre-commit]: https://github.com/pre-commit/pre-commit
 [black]: https://github.com/psf/black
 [poetry]: https://python-poetry.org/
@@ -58,11 +58,11 @@ please [file an issue] along with a detailed description.
 
 ## Credits
 
-This project was generated from [@cjolowicz]'s [Hypermodern Python Cookiecutter] template.
+This project was generated from [Statistics Norway]'s [SSB PyPI Template].
 
-[@cjolowicz]: https://github.com/cjolowicz
+[statistics norway]: https://www.ssb.no/en
 [pypi]: https://pypi.org/
-[hypermodern python cookiecutter]: https://github.com/cjolowicz/cookiecutter-hypermodern-python
+[ssb pypi template]: https://github.com/statisticsnorway/ssb-pypitemplate
 [file an issue]: https://github.com/arneso-ssb/arneso-pypitemplate-instance/issues
 [pip]: https://pip.pypa.io/
 
