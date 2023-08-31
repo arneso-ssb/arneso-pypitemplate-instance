@@ -149,11 +149,13 @@ jobs:
         run: |
           nox --session=coverage -- xml
 
-      - name: Print coverage report 1
+      - name: Print coverage report
         run: |
           pwd
+          ls
+          cat /github/workspace/coverage.xml
 
-     - name: Upload coverage report
+      - name: Upload coverage report
         uses: codecov/codecov-action@v3.1.4
 
       - name: SonarCloud Scan
