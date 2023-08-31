@@ -163,7 +163,7 @@ jobs:
           path: coverage.xml
 
       - name: Override Coverage Source Path for Sonar running in GitHub Actions docker container
-        run: sed -i "s/<source>\/home\/runner\/work\/arneso-pypitemplate-instance<\/source>/<source>\/github\/workspace<\/source>/g" coverage.xml
+        run: sed -i "s/<source>\/home\/runner\/work\/arneso-pypitemplate-instance\/arneso-pypitemplate-instance/<source>\/github\/workspace/g" coverage.xml
 
       - name: Print coverage report Sonar
         run: |
