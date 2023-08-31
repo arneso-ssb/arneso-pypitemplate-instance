@@ -152,8 +152,6 @@ jobs:
       - name: Print coverage report 1
         run: |
           pwd
-          ls
-          cat /github/workspace/coverage.xml
 
      - name: Upload coverage report
         uses: codecov/codecov-action@v3.1.4
