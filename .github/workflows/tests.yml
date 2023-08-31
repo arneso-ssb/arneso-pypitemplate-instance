@@ -149,7 +149,7 @@ jobs:
         run: |
           nox --session=coverage -- xml
 
-     - name: Print coverage report 1
+      - name: Print coverage report 1
         run: |
           pwd
           ls
