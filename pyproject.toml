@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "arneso-pypitemplate-instance"
-version = "0.0.8"
+version = "0.0.9"
 description = "Arneso Pypitemplate Instance"
 authors = ["Arne Sørli <arne.sorli@ssb.no>"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/arneso-ssb/arneso-pypitemplate-instance"
 repository = "https://github.com/arneso-ssb/arneso-pypitemplate-instance"
-documentation = "https://arneso-pypitemplate-instance.readthedocs.io"
+documentation = "https://arneso-ssb.github.io/arneso-pypitemplate-instance/"
 classifiers = [
     "Development Status :: 4 - Beta",
 ]
