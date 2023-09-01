@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "arneso-pypitemplate-instance"
-version = "0.0.5"
+version = "0.0.6"
 description = "Arneso Pypitemplate Instance"
 authors = ["Arne Sørli <arne.sorli@ssb.no>"]
 license = "MIT"
