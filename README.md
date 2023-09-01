@@ -8,6 +8,7 @@
 [![Documentation](https://github.com/arneso-ssb/arneso-pypitemplate-instance/actions/workflows/docs.yml/badge.svg)][documentation]
 [![Tests](https://github.com/arneso-ssb/arneso-pypitemplate-instance/workflows/Tests/badge.svg)][tests]
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=arneso-ssb_arneso-pypitemplate-instance&metric=coverage)][sonarcov]
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=arneso-ssb_arneso-pypitemplate-instance&metric=alert_status)][sonarquality]
 
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)][pre-commit]
 [![Black](https://img.shields.io/badge/code%20style-black-000000.svg)][black]
@@ -17,6 +18,7 @@
 [documentation]: https://arneso-ssb.github.io/arneso-pypitemplate-instance/
 [tests]: https://github.com/arneso-ssb/arneso-pypitemplate-instance/actions?workflow=Tests
 [sonarcov]: https://sonarcloud.io/summary/overall?id=arneso-ssb_arneso-pypitemplate-instance
+[sonarquality]: https://sonarcloud.io/summary/overall?id=arneso-ssb_arneso-pypitemplate-instance
 [pre-commit]: https://github.com/pre-commit/pre-commit
 [black]: https://github.com/psf/black
 [poetry]: https://python-poetry.org/
@@ -39,7 +41,7 @@ $ pip install arneso-pypitemplate-instance
 
 ## Usage
 
-Please see the [Reference] for details.
+Please see the [Reference Guide] for details.
 
 ## Contributing
 
@@ -70,4 +72,4 @@ This project was generated from [Statistics Norway]'s [SSB PyPI Template].
 
 [license]: https://github.com/arneso-ssb/arneso-pypitemplate-instance/blob/main/LICENSE
 [contributor guide]: https://github.com/arneso-ssb/arneso-pypitemplate-instance/blob/main/CONTRIBUTING.md
-[reference]: https://arneso-ssb.github.io/arneso-pypitemplate-instance/reference.html
+[reference guide]: https://arneso-ssb.github.io/arneso-pypitemplate-instance/reference.html

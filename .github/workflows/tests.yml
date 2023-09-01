@@ -152,6 +152,11 @@ jobs:
       - name: Upload coverage report
         uses: codecov/codecov-action@v3.1.4
 
+      # Need to fix coverage source paths for SonarCloud scanning in GitHub actions.
+      # Replace root path with /github/workspace (mounted in docker container).
+      - name: Override coverage source paths for SonarCloud
+        run: sed -i "s/<source>\/home\/runner\/work\/arneso-pypitemplate-instance\/arneso-pypitemplate-instance/<source>\/github\/workspace/g" coverage.xml
+
       - name: SonarCloud Scan
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
