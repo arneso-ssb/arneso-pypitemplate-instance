@@ -149,25 +149,13 @@ jobs:
         run: |
           nox --session=coverage -- xml
 
-      - name: Print coverage report
-        run: |
-          pwd
-          cat coverage.xml
-
       - name: Upload coverage report
         uses: codecov/codecov-action@v3.1.4
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: coverage
-          path: coverage.xml
-
-      - name: Override Coverage Source Path for Sonar running in GitHub Actions docker container
+      # Need to fix coverage source paths for SonarCloud scanning in GitHub actions.
+      # Replace root path with /github/workspace (mounted in docker container).
+      - name: Override coverage source paths for SonarCloud
         run: sed -i "s/<source>\/home\/runner\/work\/arneso-pypitemplate-instance\/arneso-pypitemplate-instance/<source>\/github\/workspace/g" coverage.xml
-
-      - name: Print coverage report Sonar
-        run: |
-          cat coverage.xml
 
       - name: SonarCloud Scan
         env:
