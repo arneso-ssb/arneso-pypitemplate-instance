@@ -7,9 +7,9 @@ https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html
 
 
 def example_function(number1: int, number2: int) -> str:
-    """Example function comparing two integers.
+    """Compare two integers.
 
-    This function can be deleted. It is used to show and test generating
+    This is merely an example function can be deleted. It is used to show and test generating
     documentation from code, type hinting, testing, and testing examples
     in the code.
 
@@ -31,5 +31,5 @@ def example_function(number1: int, number2: int) -> str:
     """
     if number1 < number2:
         return f"{number1} is less than {number2}"
-    else:
-        return f"{number1} is greater than or equal to {number2}"
+
+    return f"{number1} is greater than or equal to {number2}"

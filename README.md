@@ -12,10 +12,11 @@
 
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)][pre-commit]
 [![Black](https://img.shields.io/badge/code%20style-black-000000.svg)][black]
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)][poetry]
 
 [pypi status]: https://pypi.org/project/arneso-pypitemplate-instance/
-[documentation]: https://arneso-ssb.github.io/arneso-pypitemplate-instance/
+[documentation]: https://arneso-ssb.github.io/arneso-pypitemplate-instance
 [tests]: https://github.com/arneso-ssb/arneso-pypitemplate-instance/actions?workflow=Tests
 [sonarcov]: https://sonarcloud.io/summary/overall?id=arneso-ssb_arneso-pypitemplate-instance
 [sonarquality]: https://sonarcloud.io/summary/overall?id=arneso-ssb_arneso-pypitemplate-instance
@@ -36,7 +37,7 @@
 You can install _Arneso Pypitemplate Instance_ via [pip] from [PyPI]:
 
 ```console
-$ pip install arneso-pypitemplate-instance
+pip install arneso-pypitemplate-instance
 ```
 
 ## Usage
