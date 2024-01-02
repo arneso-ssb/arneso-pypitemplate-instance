@@ -146,9 +146,6 @@ jobs:
           pattern: coverage-data-*
           merge-multiple: true
 
-      - name: Display structure of downloaded files
-        run: ls -alR .
-
       - name: Combine coverage data and display human readable report
         run: |
           nox --session=coverage
