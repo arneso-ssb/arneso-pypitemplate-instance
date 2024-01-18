@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/pypi/l/arneso-pypitemplate-instance)][license]
 
 [![Documentation](https://github.com/arneso-ssb/arneso-pypitemplate-instance/actions/workflows/docs.yml/badge.svg)][documentation]
-[![Tests](https://github.com/arneso-ssb/arneso-pypitemplate-instance/workflows/Tests/badge.svg)][tests]
+[![Tests](https://github.com/arneso-ssb/arneso-pypitemplate-instance/actions/workflows/tests.yml/badge.svg)][tests]
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=arneso-ssb_arneso-pypitemplate-instance&metric=coverage)][sonarcov]
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=arneso-ssb_arneso-pypitemplate-instance&metric=alert_status)][sonarquality]
 
@@ -18,6 +18,7 @@
 [pypi status]: https://pypi.org/project/arneso-pypitemplate-instance/
 [documentation]: https://arneso-ssb.github.io/arneso-pypitemplate-instance
 [tests]: https://github.com/arneso-ssb/arneso-pypitemplate-instance/actions?workflow=Tests
+
 [sonarcov]: https://sonarcloud.io/summary/overall?id=arneso-ssb_arneso-pypitemplate-instance
 [sonarquality]: https://sonarcloud.io/summary/overall?id=arneso-ssb_arneso-pypitemplate-instance
 [pre-commit]: https://github.com/pre-commit/pre-commit
