@@ -13,7 +13,7 @@ Here is a list of important resources for contributors:
 
 [mit license]: https://opensource.org/licenses/MIT
 [source code]: https://github.com/arneso-ssb/arneso-pypitemplate-instance
-[documentation]: https://arneso-pypitemplate-instance.readthedocs.io/
+[documentation]: https://arneso-ssb.github.io/arneso-pypitemplate-instance
 [issue tracker]: https://github.com/arneso-ssb/arneso-pypitemplate-instance/issues
 
 ## How to report a bug
