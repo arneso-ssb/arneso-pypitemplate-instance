@@ -96,6 +96,17 @@ jobs:
         run: |
           nox --python=${{ matrix.python }}
 
+      - name: Debug paths not Windows
+        if: matrix.os != 'windows-latest'
+        run: |
+          pwd
+          ls -al
+
+      - name: Debug paths Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          dir
+
       - name: Upload coverage data
         if: always() && matrix.session == 'tests'
         uses: "actions/upload-artifact@v4"
@@ -157,7 +168,14 @@ jobs:
       # Need to fix coverage source paths for SonarCloud scanning in GitHub actions.
       # Replace root path with /github/workspace (mounted in docker container).
       - name: Override coverage source paths for SonarCloud
-        run: sed -i "s/<source>\/home\/runner\/work\/arneso-pypitemplate-instance\/arneso-pypitemplate-instance/<source>\/github\/workspace/g" coverage.xml
+        run: |
+          sed -i "s/<source><\/source>/<source>\/github\/workspace<\/source>/g" coverage.xml
+          sed -i "s/<source>tests/<source>\/github\/workspace\/tests/g" coverage.xml
+
+      - name: Debug coverage
+        run: |
+          pwd
+          cat coverage.xml
 
       - name: SonarCloud Scan
         env:
