@@ -49,6 +49,7 @@ tests = ["tests", "*/tests"]
 [tool.coverage.run]
 branch = true
 source = ["arneso_pypitemplate_instance", "tests"]
+relative_files = true
 
 [tool.coverage.report]
 show_missing = true
