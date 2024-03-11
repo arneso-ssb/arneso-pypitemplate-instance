@@ -4,6 +4,7 @@ The template and this example uses Google style docstrings as described at:
 https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html
 
 """
+
 from math import sqrt
 
 
