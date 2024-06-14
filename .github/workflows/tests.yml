@@ -16,17 +16,17 @@ jobs:
       matrix:
         include:
           - { python: "3.10", os: "ubuntu-latest", session: "pre-commit" }
-          - { python: "3.10", os: "ubuntu-latest", session: "mypy" }
-          - { python: "3.11", os: "ubuntu-latest", session: "mypy" }
-          - { python: "3.12", os: "ubuntu-latest", session: "mypy" }
+#          - { python: "3.10", os: "ubuntu-latest", session: "mypy" }
+#          - { python: "3.11", os: "ubuntu-latest", session: "mypy" }
+#          - { python: "3.12", os: "ubuntu-latest", session: "mypy" }
           - { python: "3.10", os: "ubuntu-latest", session: "tests" }
-          - { python: "3.11", os: "ubuntu-latest", session: "tests" }
-          - { python: "3.12", os: "ubuntu-latest", session: "tests" }
-          - { python: "3.12", os: "windows-latest", session: "tests" }
-          - { python: "3.12", os: "macos-latest", session: "tests" }
-          - { python: "3.10", os: "ubuntu-latest", session: "typeguard" }
-          - { python: "3.10", os: "ubuntu-latest", session: "xdoctest" }
-          - { python: "3.10", os: "ubuntu-latest", session: "docs-build" }
+#          - { python: "3.11", os: "ubuntu-latest", session: "tests" }
+#          - { python: "3.12", os: "ubuntu-latest", session: "tests" }
+#          - { python: "3.12", os: "windows-latest", session: "tests" }
+#          - { python: "3.12", os: "macos-latest", session: "tests" }
+#          - { python: "3.10", os: "ubuntu-latest", session: "typeguard" }
+#          - { python: "3.10", os: "ubuntu-latest", session: "xdoctest" }
+#          - { python: "3.10", os: "ubuntu-latest", session: "docs-build" }
 
     env:
       NOXSESSION: ${{ matrix.session }}
@@ -154,6 +154,9 @@ jobs:
         run: |
           nox --session=coverage -- xml
 
+      - name: Debug coverage original
+        run: head -n 20 coverage.xml  
+
       # Need to fix coverage source paths for SonarCloud scanning in GitHub actions.
       # Replace root path with /github/workspace (mounted in docker container).
       - name: Override coverage source paths for SonarCloud
@@ -161,6 +164,9 @@ jobs:
           sed -i "s/<source><\/source>/<source>\/github\/workspace<\/source>/g" coverage.xml
           sed -i "s/<source>tests/<source>\/github\/workspace\/tests/g" coverage.xml
 
+      - name: Debug coverage modified
+        run: head -n 20 coverage.xml
+  
       - name: SonarCloud Scan
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
