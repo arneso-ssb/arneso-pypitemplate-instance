@@ -92,9 +92,65 @@ jobs:
           restore-keys: |
             ${{ steps.pre-commit-cache.outputs.result }}-
 
+      # Start debug timers
+      - name: Start Step 1 Timer
+        id: start_step_1
+        run: |
+          echo "Step 1 start time: $(date +%s)" >> $GITHUB_ENV
+        shell: bash
+        if: runner.os != 'Windows'
+        
+      - name: Start Step 1 Timer (Windows)
+        id: start_step_1_windows
+        run: |
+          echo "Step 1 start time: $(Get-Date -UFormat %s)" >> $env:GITHUB_ENV
+        shell: pwsh
+        if: runner.os == 'Windows'
+
       - name: Run Nox
         run: |
           nox --python=${{ matrix.python }}
+
+      # Stop debug timers and calculate execution time
+      - name: End Step 1 Timer
+        id: end_step_1
+        run: |
+          echo "Step 1 end time: $(date +%s)" >> $GITHUB_ENV
+        shell: bash
+        if: runner.os != 'Windows'
+
+      - name: End Step 1 Timer (Windows)
+        id: end_step_1_windows
+        run: |
+          echo "Step 1 end time: $(Get-Date -UFormat %s)" >> $env:GITHUB_ENV
+        shell: pwsh
+        if: runner.os == 'Windows'
+    
+      - name: Calculate Step 1 Duration
+        id: duration_step_1
+        run: |
+          step_start_time=$(echo "$STEP_1_START" | tr -d '\r')
+          step_end_time=$(echo "$STEP_1_END" | tr -d '\r')
+          duration=$((step_end_time - step_start_time))
+          echo "Step 1 duration: ${duration} seconds"
+        env:
+          STEP_1_START: ${{ env.STEP_1_START }}
+          STEP_1_END: ${{ env.STEP_1_END }}
+        shell: bash
+        if: runner.os != 'Windows'
+    
+      - name: Calculate Step 1 Duration (Windows)
+        id: duration_step_1_windows
+        run: |
+          $step_start_time = $env:STEP_1_START -replace "`r"
+          $step_end_time = $env:STEP_1_END -replace "`r"
+          $duration = [int]($step_end_time) - [int]($step_start_time)
+          echo "Step 1 duration: ${duration} seconds"
+        env:
+          STEP_1_START: ${{ env.STEP_1_START }}
+          STEP_1_END: ${{ env.STEP_1_END }}
+        shell: pwsh
+        if: runner.os == 'Windows'
 
       - name: Upload coverage data
         if: always() && matrix.session == 'tests'
