@@ -96,14 +96,14 @@ jobs:
       - name: Start Step 1 Timer
         id: start_step_1
         run: |
-          echo "Step 1 start time: $(date +%s)" >> $GITHUB_ENV
+          echo "STEP_1_START=$(date +%s)" >> $GITHUB_ENV
         shell: bash
         if: runner.os != 'Windows'
-        
+
       - name: Start Step 1 Timer (Windows)
         id: start_step_1_windows
         run: |
-          echo "Step 1 start time: $(Get-Date -UFormat %s)" >> $env:GITHUB_ENV
+          echo "STEP_1_START=$(Get-Date -UFormat %s)" >> $env:GITHUB_ENV
         shell: pwsh
         if: runner.os == 'Windows'
 
@@ -115,17 +115,17 @@ jobs:
       - name: End Step 1 Timer
         id: end_step_1
         run: |
-          echo "Step 1 end time: $(date +%s)" >> $GITHUB_ENV
+          echo "STEP_1_END=$(date +%s)" >> $GITHUB_ENV
         shell: bash
         if: runner.os != 'Windows'
 
       - name: End Step 1 Timer (Windows)
         id: end_step_1_windows
         run: |
-          echo "Step 1 end time: $(Get-Date -UFormat %s)" >> $env:GITHUB_ENV
+          echo "STEP_1_END=$(Get-Date -UFormat %s)" >> $env:GITHUB_ENV
         shell: pwsh
         if: runner.os == 'Windows'
-    
+
       - name: Calculate Step 1 Duration
         id: duration_step_1
         run: |
@@ -138,7 +138,7 @@ jobs:
           STEP_1_END: ${{ env.STEP_1_END }}
         shell: bash
         if: runner.os != 'Windows'
-    
+
       - name: Calculate Step 1 Duration (Windows)
         id: duration_step_1_windows
         run: |
