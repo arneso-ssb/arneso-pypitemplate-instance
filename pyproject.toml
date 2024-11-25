@@ -35,7 +35,6 @@ sphinx-click = ">=3.0.2"
 typeguard = ">=2.13.3"
 xdoctest = { extras = ["colors"], version = ">=0.15.10" }
 myst-parser = { version = ">=0.16.1" }
-tomlkit = ">=0.13.2"
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
@@ -104,7 +103,6 @@ classmethod-decorators = ["classmethod", "validator", "root_validator", "pydanti
 
 [tool.ruff.lint.per-file-ignores]
 "*/__init__.py" = ["F401"]
-"replace_packagename.py" = ["INP001"]
 "**/tests/*" = [
     "ANN001",  # type annotations don't add value for test functions
     "ANN002",  # type annotations don't add value for test functions
