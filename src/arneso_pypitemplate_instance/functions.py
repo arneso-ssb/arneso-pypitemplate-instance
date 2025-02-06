@@ -29,7 +29,7 @@ def example_function(number1: int, number2: int) -> str:
         1 is less than 2
 
     """
-    if number1 > number2:
-        return f"{number1} is greater than {number2}"
+    if number1 < number2:
+        return f"{number1} is less than {number2}"
 
-    return f"{number1} is greater than or equal to {number2}"
+    return f"{number1} >= {number2}"
