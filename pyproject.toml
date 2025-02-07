@@ -16,6 +16,7 @@ Changelog = "https://github.com/arneso-ssb/arneso-pypitemplate-instance/releases
 [tool.poetry.dependencies]
 python = "^3.10"
 click = ">=8.0.1"
+pydantic = {extras = ["mypy"], version = ">=2.10.6"}
 
 [tool.poetry.group.dev.dependencies]
 pygments = ">=2.10.0"
