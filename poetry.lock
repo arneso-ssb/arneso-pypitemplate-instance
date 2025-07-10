@@ -1968,5 +1968,5 @@ tests-strict = ["pytest (==4.6.0) ; python_version < \"3.10.0\" and python_versi
 
 [metadata]
 lock-version = "2.1"
-python-versions = "^3.10"
-content-hash = "d986e0ea79a097f1b66979fae4da5784762bbc6681aa41d0255dd10a93ad5510"
+python-versions = ">=3.10,<4.0"
+content-hash = "58b61f783b1c3050e11190e5702c9f428d06928b0a21b233698e66461ac270fa"

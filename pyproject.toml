@@ -1,21 +1,28 @@
-[tool.poetry]
+[project]
 name = "arneso-pypitemplate-instance"
 version = "0.1.0"
 description = "Arneso Pypitemplate Instance"
-authors = ["Arne Sørli <arne.sorli@ssb.no>"]
+authors = [{name = "Arne Sørli", email = "arne.sorli@ssb.no"}]
 license = "MIT"
 readme = "README.md"
+dynamic = ["classifiers"]
+requires-python = ">=3.10,<4.0"
+dependencies = [
+    "click (>=8.0.1)"
+]
+
+[project.urls]
 homepage = "https://github.com/arneso-ssb/arneso-pypitemplate-instance"
 repository = "https://github.com/arneso-ssb/arneso-pypitemplate-instance"
 documentation = "https://arneso-ssb.github.io/arneso-pypitemplate-instance"
-classifiers = ["Development Status :: 4 - Beta"]
-
-[tool.poetry.urls]
 Changelog = "https://github.com/arneso-ssb/arneso-pypitemplate-instance/releases"
 
-[tool.poetry.dependencies]
-python = "^3.10"
-click = ">=8.0.1"
+[project.scripts]
+arneso-pypitemplate-instance = "arneso_pypitemplate_instance.__main__:main"
+
+[tool.poetry]
+classifiers = ["Development Status :: 4 - Beta"]
+requires-poetry = ">=2.0"
 
 [tool.poetry.group.dev.dependencies]
 pygments = ">=2.10.0"
@@ -36,11 +43,11 @@ typeguard = ">=2.13.3"
 xdoctest = { extras = ["colors"], version = ">=0.15.10" }
 myst-parser = { version = ">=0.16.1" }
 
+[tool.poetry.requires-plugins]
+poetry-plugin-export = ">=1.9"
+
 [tool.pytest.ini_options]
 pythonpath = ["src"]
-
-[tool.poetry.scripts]
-arneso-pypitemplate-instance = "arneso_pypitemplate_instance.__main__:main"
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
