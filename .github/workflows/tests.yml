@@ -60,7 +60,6 @@ jobs:
       - name: Install Poetry
         run: |
           pipx install --pip-args "-c ${{ github.workspace }}/.github/workflows/constraints.txt" poetry
-          pipx inject poetry poetry-plugin-export
           poetry --version
 
       - name: Install Nox
@@ -135,7 +134,6 @@ jobs:
       - name: Install Poetry
         run: |
           pipx install --pip-args "-c ${{ github.workspace }}/.github/workflows/constraints.txt" poetry
-          pipx inject poetry poetry-plugin-export
           poetry --version
 
       - name: Install Nox
