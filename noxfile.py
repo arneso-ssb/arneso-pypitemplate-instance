@@ -24,11 +24,30 @@ nox.options.sessions = (
     "xdoctest",
     "docs-build",
 )
+nox.options.default_venv_backend = "uv"
 
 
-def install_with_uv(session: Session, *args: str) -> None:
-    """Install packages using uv in the nox session."""
-    session.run("uv", "pip", "install", *args, external=True)
+def install_with_uv(
+    session: Session,
+    *,
+    only_dev: bool = False,
+    all_extras: bool = False,
+    locked: bool = True,
+) -> None:
+    """Install packages using uv, pinned to uv.lock."""
+    cmd = ["uv", "sync"]
+    if locked:
+        cmd.append("--locked")
+    if only_dev:
+        cmd.append("--only-dev")
+    if all_extras:
+        cmd.append("--all-extras")
+    cmd.append(
+        f"--python={session.virtualenv.location}"
+    )  # Target the nox venv's Python interpreter
+    session.run_install(
+        *cmd, env={"UV_PROJECT_ENVIRONMENT": session.virtualenv.location}
+    )
 
 
 def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
@@ -123,14 +142,7 @@ def precommit(session: Session) -> None:
         "--hook-stage=manual",
         "--show-diff-on-failure",
     ]
-    install_with_uv(
-        session,
-        "pre-commit",
-        "pre-commit-hooks",
-        "darglint",
-        "ruff",
-        "black",
-    )
+    install_with_uv(session, only_dev=True)
     session.run("pre-commit", *args)
     if args and args[0] == "install":
         activate_virtualenv_in_precommit_hooks(session)
@@ -140,8 +152,7 @@ def precommit(session: Session) -> None:
 def mypy(session: Session) -> None:
     """Type-check using mypy."""
     args = session.posargs or ["src", "tests"]
-    install_with_uv(session, "-e", ".")
-    install_with_uv(session, "mypy", "pytest")
+    install_with_uv(session)
     session.run("mypy", *args)
     if not session.posargs:
         session.run("mypy", f"--python-executable={sys.executable}", "noxfile.py")
@@ -150,8 +161,7 @@ def mypy(session: Session) -> None:
 @session(python=python_versions_for_test)
 def tests(session: Session) -> None:
     """Run the test suite."""
-    install_with_uv(session, "-e", ".")
-    install_with_uv(session, "coverage[toml]", "pytest", "pygments")
+    install_with_uv(session)
     try:
         session.run(
             "coverage",
@@ -173,7 +183,7 @@ def coverage(session: Session) -> None:
     """Produce the coverage report."""
     args = session.posargs or ["report", "--skip-empty"]
 
-    install_with_uv(session, "coverage[toml]")
+    install_with_uv(session)
 
     if not session.posargs and any(Path().glob(".coverage.*")):
         session.run("coverage", "combine")
@@ -184,8 +194,7 @@ def coverage(session: Session) -> None:
 @session(python=python_versions[0])
 def typeguard(session: Session) -> None:
     """Runtime type checking using Typeguard."""
-    install_with_uv(session, "-e", ".")
-    install_with_uv(session, "pytest", "typeguard", "pygments")
+    install_with_uv(session)
     session.run("pytest", f"--typeguard-packages={package}", *session.posargs)
 
 
@@ -199,8 +208,7 @@ def xdoctest(session: Session) -> None:
         if "FORCE_COLOR" in os.environ:
             args.append("--colored=1")
 
-    install_with_uv(session, "-e", ".")
-    install_with_uv(session, "xdoctest[colors]")
+    install_with_uv(session)
     session.run("python", "-m", "xdoctest", *args)
 
 
@@ -211,15 +219,7 @@ def docs_build(session: Session) -> None:
     if not session.posargs and "FORCE_COLOR" in os.environ:
         args.insert(0, "--color")
 
-    install_with_uv(session, "-e", ".")
-    install_with_uv(
-        session,
-        "sphinx",
-        "sphinx-autodoc-typehints",
-        "sphinx-click",
-        "furo",
-        "myst-parser",
-    )
+    install_with_uv(session, only_dev=True)
 
     build_dir = Path("docs", "_build")
     if build_dir.exists():
@@ -232,16 +232,7 @@ def docs_build(session: Session) -> None:
 def docs(session: Session) -> None:
     """Build and serve the documentation with live reloading on file changes."""
     args = session.posargs or ["--open-browser", "docs", "docs/_build"]
-    install_with_uv(session, "-e", ".")
-    install_with_uv(
-        session,
-        "sphinx",
-        "sphinx-autobuild",
-        "sphinx-autodoc-typehints",
-        "sphinx-click",
-        "furo",
-        "myst-parser",
-    )
+    install_with_uv(session, only_dev=True)
 
     build_dir = Path("docs", "_build")
     if build_dir.exists():
