@@ -41,10 +41,17 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v4
 
+      - name: Get uv version from constraints
+        id: uv-version
+        run: |
+          UV_VERSION=$(grep "^uv==" .github/workflows/constraints.txt | cut -d'=' -f3)
+          echo "version=$UV_VERSION" >> $GITHUB_OUTPUT
+
       - name: Install uv
         uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
+          version: ${{ steps.uv-version.outputs.version }}
           python-version: ${{ matrix.python }}
 
       - name: Install Nox
@@ -105,10 +112,17 @@ jobs:
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
+      - name: Get uv version from constraints
+        id: uv-version
+        run: |
+          UV_VERSION=$(grep "^uv==" .github/workflows/constraints.txt | cut -d'=' -f3)
+          echo "version=$UV_VERSION" >> $GITHUB_OUTPUT
+
       - name: Install uv
         uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
+          version: ${{ steps.uv-version.outputs.version }}
 
       - name: Set up Python
         uses: actions/setup-python@v5.6.0
