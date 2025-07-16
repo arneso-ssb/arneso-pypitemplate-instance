@@ -41,10 +41,6 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v4
 
-      - name: Record start time
-        id: start_time
-        run: echo "start=$(date +%s)" >> $GITHUB_ENV
-
       - name: Get uv version from constraints
         id: uv-version
         shell: pwsh
@@ -59,17 +55,34 @@ jobs:
           version: ${{ steps.uv-version.outputs.version }}
           python-version: ${{ matrix.python }}
 
+      - name: Compute pre-commit cache key
+        if: matrix.session == 'pre-commit'
+        id: pre-commit-cache
+        shell: python
+        run: |
+          import hashlib
+          import subprocess
+          import sys
+
+          python = "py{}.{}".format(*sys.version_info[:2])
+          payload = sys.version.encode() + sys.executable.encode()
+          digest = hashlib.sha256(payload).hexdigest()
+          result = "${{ runner.os }}-{}-{}-pre-commit".format(python, digest[:8])
+          cmd = f'echo "result={result}" >> $GITHUB_OUTPUT'
+          subprocess.run(cmd, shell=True)
+
+      - name: Restore pre-commit cache
+        uses: actions/cache@v4
+        if: matrix.session == 'pre-commit'
+        with:
+          path: ~/.cache/pre-commit
+          key: ${{ steps.pre-commit-cache.outputs.result }}-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: |
+            ${{ steps.pre-commit-cache.outputs.result }}-
+
       - name: Run Nox
         run: |
           uvx --constraints "${{ github.workspace }}/.github/workflows/constraints.txt" nox --python=${{ matrix.python }}
-
-      - name: Calculate duration
-        run: |
-          end=$(date +%s)
-          duration=$((end - start))
-          echo "Step took $duration seconds"
-        env:
-          start: ${{ env.start }}
 
       - name: Upload coverage data
         if: always() && matrix.session == 'tests'
@@ -107,6 +120,7 @@ jobs:
         with:
           enable-cache: true
           version: ${{ steps.uv-version.outputs.version }}
+          python-version: "3.11"
 
       - name: Download coverage data
         uses: actions/download-artifact@v4

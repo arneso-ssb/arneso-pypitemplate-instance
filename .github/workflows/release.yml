@@ -32,10 +32,6 @@ jobs:
         with:
           enable-cache: true
           version: ${{ steps.uv-version.outputs.version }}
-
-      - name: Set up Python
-        uses: actions/setup-python@v5.6.0
-        with:
           python-version: "3.12"
 
       - name: Check if there is a parent commit
