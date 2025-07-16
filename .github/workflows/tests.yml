@@ -120,6 +120,7 @@ jobs:
         with:
           enable-cache: true
           version: ${{ steps.uv-version.outputs.version }}
+          python-version: "3.11"
 
       - name: Download coverage data
         uses: actions/download-artifact@v4
