@@ -8,19 +8,7 @@ from pathlib import Path
 from textwrap import dedent
 
 import nox
-
-
-try:
-    from nox_poetry import Session
-    from nox_poetry import session
-except ImportError:
-    message = f"""\
-    Nox failed to import the 'nox-poetry' package.
-
-    Please install it using the following command:
-
-    {sys.executable} -m pip install nox-poetry"""
-    raise SystemExit(dedent(message)) from None
+from nox import Session
 
 package = "arneso_pypitemplate_instance"
 python_versions = ["3.11", "3.12", "3.13"]
@@ -34,6 +22,11 @@ nox.options.sessions = (
     "xdoctest",
     "docs-build",
 )
+
+
+def install_with_uv(session: Session, *args: str) -> None:
+    """Install packages using uv in the nox session."""
+    session.run("uv", "pip", "install", *args, external=True)
 
 
 def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
@@ -119,7 +112,7 @@ def insert_header_in_hook(header: dict[str, str], lines: list[str]) -> str:
     return "\n".join(lines)
 
 
-@session(name="pre-commit", python=python_versions[0])
+@nox.session(name="pre-commit", python=python_versions[0])
 def precommit(session: Session) -> None:
     """Lint using pre-commit."""
     args = session.posargs or [
@@ -128,7 +121,8 @@ def precommit(session: Session) -> None:
         "--hook-stage=manual",
         "--show-diff-on-failure",
     ]
-    session.install(
+    install_with_uv(
+        session,
         "pre-commit",
         "pre-commit-hooks",
         "darglint",
@@ -140,22 +134,22 @@ def precommit(session: Session) -> None:
         activate_virtualenv_in_precommit_hooks(session)
 
 
-@session(python=python_versions)
+@nox.session(python=python_versions)
 def mypy(session: Session) -> None:
     """Type-check using mypy."""
     args = session.posargs or ["src", "tests"]
-    session.install(".")
-    session.install("mypy", "pytest")
+    install_with_uv(session, "-e", ".")
+    install_with_uv(session, "mypy", "pytest")
     session.run("mypy", *args)
     if not session.posargs:
         session.run("mypy", f"--python-executable={sys.executable}", "noxfile.py")
 
 
-@session(python=python_versions_for_test)
+@nox.session(python=python_versions_for_test)
 def tests(session: Session) -> None:
     """Run the test suite."""
-    session.install(".")
-    session.install("coverage[toml]", "pytest", "pygments")
+    install_with_uv(session, "-e", ".")
+    install_with_uv(session, "coverage[toml]", "pytest", "pygments")
     try:
         session.run(
             "coverage",
@@ -172,12 +166,12 @@ def tests(session: Session) -> None:
             session.notify("coverage", posargs=[])
 
 
-@session(python=python_versions[0])
+@nox.session(python=python_versions[0])
 def coverage(session: Session) -> None:
     """Produce the coverage report."""
     args = session.posargs or ["report", "--skip-empty"]
 
-    session.install("coverage[toml]")
+    install_with_uv(session, "coverage[toml]")
 
     if not session.posargs and any(Path().glob(".coverage.*")):
         session.run("coverage", "combine")
@@ -185,15 +179,15 @@ def coverage(session: Session) -> None:
     session.run("coverage", *args)
 
 
-@session(python=python_versions[0])
+@nox.session(python=python_versions[0])
 def typeguard(session: Session) -> None:
     """Runtime type checking using Typeguard."""
-    session.install(".")
-    session.install("pytest", "typeguard", "pygments")
+    install_with_uv(session, "-e", ".")
+    install_with_uv(session, "pytest", "typeguard", "pygments")
     session.run("pytest", f"--typeguard-packages={package}", *session.posargs)
 
 
-@session(python=python_versions)
+@nox.session(python=python_versions)
 def xdoctest(session: Session) -> None:
     """Run examples with xdoctest."""
     if session.posargs:
@@ -203,20 +197,21 @@ def xdoctest(session: Session) -> None:
         if "FORCE_COLOR" in os.environ:
             args.append("--colored=1")
 
-    session.install(".")
-    session.install("xdoctest[colors]")
+    install_with_uv(session, "-e", ".")
+    install_with_uv(session, "xdoctest[colors]")
     session.run("python", "-m", "xdoctest", *args)
 
 
-@session(name="docs-build", python=python_versions[0])
+@nox.session(name="docs-build", python=python_versions[0])
 def docs_build(session: Session) -> None:
     """Build the documentation."""
     args = session.posargs or ["docs", "docs/_build"]
     if not session.posargs and "FORCE_COLOR" in os.environ:
         args.insert(0, "--color")
 
-    session.install(".")
-    session.install(
+    install_with_uv(session, "-e", ".")
+    install_with_uv(
+        session,
         "sphinx", "sphinx-autodoc-typehints", "sphinx-click", "furo", "myst-parser"
     )
 
@@ -227,12 +222,13 @@ def docs_build(session: Session) -> None:
     session.run("sphinx-build", *args)
 
 
-@session(python=python_versions[0])
+@nox.session(python=python_versions[0])
 def docs(session: Session) -> None:
     """Build and serve the documentation with live reloading on file changes."""
     args = session.posargs or ["--open-browser", "docs", "docs/_build"]
-    session.install(".")
-    session.install(
+    install_with_uv(session, "-e", ".")
+    install_with_uv(
+        session,
         "sphinx",
         "sphinx-autobuild",
         "sphinx-autodoc-typehints",

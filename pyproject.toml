@@ -70,7 +70,7 @@ show_missing = true
 fail_under = 50
 
 [tool.deptry.per_rule_ignores]
-DEP001 = ["nox", "nox_poetry"]  # packages available by default
+DEP001 = ["nox"]  # packages available by default
 
 [tool.mypy]
 strict = true

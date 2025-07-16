@@ -20,26 +20,24 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
       - name: Set up Python
         uses: actions/setup-python@v5.6.0
         with:
           python-version: "3.12"
 
-      - name: Upgrade pip
-        run: |
-          pip install -c ${{ github.workspace }}/.github/workflows/constraints.txt pip
-          pip --version
-
-      - name: Install Poetry
-        run: |
-          pipx install --pip-args "-c ${{ github.workspace }}/.github/workflows/constraints.txt" poetry
-          pipx inject poetry poetry-plugin-export
-          poetry --version
-
       - name: Check if there is a parent commit
         id: check-parent-commit
         run: |
           echo "sha=$(git rev-parse --verify --quiet HEAD^)" >> $GITHUB_OUTPUT
+
+      - name: Install dependencies for version management
+        run: |
+          uv add --dev tomli-w
 
       - name: Detect and tag new version
         id: check-version
@@ -47,18 +45,34 @@ jobs:
         uses: salsify/action-detect-and-tag-new-version@v2.0.3
         with:
           version-command: |
-            bash -o pipefail -c "poetry version | cut -f 2 -d' '"
+            bash -o pipefail -c "uv run python -c \"import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])\""
 
       - name: Bump version for developmental release
         if: (!steps.check-version.outputs.tag)
         run: |
-          poetry version patch &&
-          version=$(poetry version | awk '{ print $2 }') &&
-          poetry version $version.dev.$(date +%s)
+          uv run python -c "
+          import tomllib
+          import tomli_w
+          import time
+
+          with open('pyproject.toml', 'rb') as f:
+              data = tomllib.load(f)
+
+          current_version = data['project']['version']
+          version_parts = current_version.split('.')
+          version_parts[-1] = str(int(version_parts[-1]) + 1)
+          new_version = '.'.join(version_parts)
+          dev_version = f'{new_version}.dev.{int(time.time())}'
+
+          data['project']['version'] = dev_version
+
+          with open('pyproject.toml', 'wb') as f:
+              tomli_w.dump(data, f)
+          "
 
       - name: Build package
         run: |
-          poetry build --ansi
+          uv build
 
       - name: Publish package on PyPI
         if: steps.check-version.outputs.tag
