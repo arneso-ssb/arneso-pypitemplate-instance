@@ -22,9 +22,10 @@ jobs:
 
       - name: Get uv version from constraints
         id: uv-version
+        shell: pwsh
         run: |
-          UV_VERSION=$(grep "^uv==" .github/workflows/constraints.txt | cut -d'=' -f3)
-          echo "version=$UV_VERSION" >> $GITHUB_OUTPUT
+          $UV_VERSION = (Get-Content .github/workflows/constraints.txt | Where-Object { $_ -match '^uv==' } | ForEach-Object { ($_ -split '==')[1] })
+          echo "version=$UV_VERSION" >> $env:GITHUB_OUTPUT
 
       - name: Install uv
         uses: astral-sh/setup-uv@v6
