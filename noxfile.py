@@ -10,6 +10,8 @@ from textwrap import dedent
 import nox
 from nox import Session
 
+session = nox.session
+
 package = "arneso_pypitemplate_instance"
 python_versions = ["3.11", "3.12", "3.13"]
 python_versions_for_test = python_versions + ["3.10"]
@@ -112,7 +114,7 @@ def insert_header_in_hook(header: dict[str, str], lines: list[str]) -> str:
     return "\n".join(lines)
 
 
-@nox.session(name="pre-commit", python=python_versions[0])
+@session(name="pre-commit", python=python_versions[0])
 def precommit(session: Session) -> None:
     """Lint using pre-commit."""
     args = session.posargs or [
@@ -134,7 +136,7 @@ def precommit(session: Session) -> None:
         activate_virtualenv_in_precommit_hooks(session)
 
 
-@nox.session(python=python_versions)
+@session(python=python_versions)
 def mypy(session: Session) -> None:
     """Type-check using mypy."""
     args = session.posargs or ["src", "tests"]
@@ -145,7 +147,7 @@ def mypy(session: Session) -> None:
         session.run("mypy", f"--python-executable={sys.executable}", "noxfile.py")
 
 
-@nox.session(python=python_versions_for_test)
+@session(python=python_versions_for_test)
 def tests(session: Session) -> None:
     """Run the test suite."""
     install_with_uv(session, "-e", ".")
@@ -166,7 +168,7 @@ def tests(session: Session) -> None:
             session.notify("coverage", posargs=[])
 
 
-@nox.session(python=python_versions[0])
+@session(python=python_versions[0])
 def coverage(session: Session) -> None:
     """Produce the coverage report."""
     args = session.posargs or ["report", "--skip-empty"]
@@ -179,7 +181,7 @@ def coverage(session: Session) -> None:
     session.run("coverage", *args)
 
 
-@nox.session(python=python_versions[0])
+@session(python=python_versions[0])
 def typeguard(session: Session) -> None:
     """Runtime type checking using Typeguard."""
     install_with_uv(session, "-e", ".")
@@ -187,7 +189,7 @@ def typeguard(session: Session) -> None:
     session.run("pytest", f"--typeguard-packages={package}", *session.posargs)
 
 
-@nox.session(python=python_versions)
+@session(python=python_versions)
 def xdoctest(session: Session) -> None:
     """Run examples with xdoctest."""
     if session.posargs:
@@ -202,7 +204,7 @@ def xdoctest(session: Session) -> None:
     session.run("python", "-m", "xdoctest", *args)
 
 
-@nox.session(name="docs-build", python=python_versions[0])
+@session(name="docs-build", python=python_versions[0])
 def docs_build(session: Session) -> None:
     """Build the documentation."""
     args = session.posargs or ["docs", "docs/_build"]
@@ -212,7 +214,11 @@ def docs_build(session: Session) -> None:
     install_with_uv(session, "-e", ".")
     install_with_uv(
         session,
-        "sphinx", "sphinx-autodoc-typehints", "sphinx-click", "furo", "myst-parser"
+        "sphinx",
+        "sphinx-autodoc-typehints",
+        "sphinx-click",
+        "furo",
+        "myst-parser",
     )
 
     build_dir = Path("docs", "_build")
@@ -222,7 +228,7 @@ def docs_build(session: Session) -> None:
     session.run("sphinx-build", *args)
 
 
-@nox.session(python=python_versions[0])
+@session(python=python_versions[0])
 def docs(session: Session) -> None:
     """Build and serve the documentation with live reloading on file changes."""
     args = session.posargs or ["--open-browser", "docs", "docs/_build"]
