@@ -45,11 +45,6 @@ jobs:
         id: start_time
         run: echo "start=$(date +%s)" >> $GITHUB_ENV
 
-      - name: Set up Python
-        uses: actions/setup-python@v5.6.0
-        with:
-          python-version: ${{ matrix.python }}
-
       - name: Get uv version from constraints
         id: uv-version
         shell: pwsh
@@ -62,6 +57,7 @@ jobs:
         with:
           enable-cache: true
           version: ${{ steps.uv-version.outputs.version }}
+          python-version: ${{ matrix.python }}
 
       - name: Run Nox
         run: |
