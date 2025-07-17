@@ -45,12 +45,12 @@ jobs:
         uses: salsify/action-detect-and-tag-new-version@v2.0.3
         with:
           version-command: |
-            bash -o pipefail -c "uvx --from=toml-cli toml get --toml-path=pyproject.toml project.version"
+            uv version --short
 
       - name: Bump version for developmental release
         if: (!steps.check-version.outputs.tag)
         run: |
-          version=$(uvx --from=toml-cli toml get --toml-path=pyproject.toml project.version) &&
+          version=$(uv version --short) &&
           uvx --from=toml-cli toml set --toml-path=pyproject.toml project.version $version.dev.$(date +%s)
 
       - name: Build package
