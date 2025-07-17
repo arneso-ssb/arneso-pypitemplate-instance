@@ -34,6 +34,11 @@ jobs:
           version: ${{ steps.uv-version.outputs.version }}
           python-version: "3.12"
 
+      - name: Upgrade pip
+        run: |
+          pip install -c ${{ github.workspace }}/.github/workflows/constraints.txt pip
+          pip --version
+
       - name: Check if there is a parent commit
         id: check-parent-commit
         run: |

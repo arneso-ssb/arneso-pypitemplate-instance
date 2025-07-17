@@ -55,6 +55,20 @@ jobs:
           version: ${{ steps.uv-version.outputs.version }}
           python-version: ${{ matrix.python }}
 
+      - name: Upgrade pip
+        run: |
+          pip install -c ${{ github.workspace }}/.github/workflows/constraints.txt pip
+          pip --version
+
+      - name: Upgrade pip in virtual environments
+        shell: python
+        run: |
+          import os
+          import pip
+
+          with open(os.environ["GITHUB_ENV"], mode="a") as io:
+              print(f"VIRTUALENV_PIP={pip.__version__}", file=io)
+
       - name: Compute pre-commit cache key
         if: matrix.session == 'pre-commit'
         id: pre-commit-cache
@@ -121,6 +135,11 @@ jobs:
           enable-cache: true
           version: ${{ steps.uv-version.outputs.version }}
           python-version: "3.11"
+
+      - name: Upgrade pip
+        run: |
+          pip install -c ${{ github.workspace }}/.github/workflows/constraints.txt pip
+          pip --version
 
       - name: Download coverage data
         uses: actions/download-artifact@v4
