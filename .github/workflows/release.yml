@@ -50,8 +50,9 @@ jobs:
       - name: Bump version for developmental release
         if: (!steps.check-version.outputs.tag)
         run: |
+          uv version --bump patch &&
           version=$(uv version --short) &&
-          uvx --from=toml-cli toml set --toml-path=pyproject.toml project.version $version.dev.$(date +%s)
+          uv version $version.dev.$(date +%s)
 
       - name: Build package
         run: |
