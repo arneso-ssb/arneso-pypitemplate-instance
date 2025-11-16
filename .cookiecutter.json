@@ -1,5 +1,5 @@
 {
-  "_commit": "ebdeccc34b3a8438e1053362d601623cca6d9b4a",
+  "_commit": "9e3c49f6680d4c400567c39d70b768f0a322c95e",
   "_copy_without_render": [
     "*.rst_t"
   ],
@@ -12,7 +12,8 @@
   "code_quality_level": "High",
   "copyright_owner": "Statistics Norway",
   "copyright_year": "2023",
-  "department_number": "",
+  "department_number": "703",
+  "dependency_manager_tool": "poetry",
   "development_status": "Development Status :: 4 - Beta",
   "email": "arne.sorli@ssb.no",
   "friendly_name": "Arneso Pypitemplate Instance",
