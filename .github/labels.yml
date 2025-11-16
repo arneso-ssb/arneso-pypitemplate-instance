@@ -64,6 +64,3 @@
 - name: "skip-changelog"
   description: Changes that should be omitted from the release notes
   color: ededed
-- name: removal2
-  description: Removals and Deprecations
-  color: 9ae7ea

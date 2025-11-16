@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.abspath("../src"))
 # -- Project information -----------------------------------------------------
 
 project = "Arneso Pypitemplate Instance"
-copyright = "2024, Statistics Norway"
+copyright = "2023, Statistics Norway"
 author = "Arne Sørli"
 
 # -- General configuration ---------------------------------------------------

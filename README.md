@@ -18,7 +18,6 @@
 [pypi status]: https://pypi.org/project/arneso-pypitemplate-instance/
 [documentation]: https://arneso-ssb.github.io/arneso-pypitemplate-instance
 [tests]: https://github.com/arneso-ssb/arneso-pypitemplate-instance/actions?workflow=Tests
-
 [sonarcov]: https://sonarcloud.io/summary/overall?id=arneso-ssb_arneso-pypitemplate-instance
 [sonarquality]: https://sonarcloud.io/summary/overall?id=arneso-ssb_arneso-pypitemplate-instance
 [pre-commit]: https://github.com/pre-commit/pre-commit

@@ -3,19 +3,11 @@ name = "arneso-pypitemplate-instance"
 version = "0.2.0"
 description = "Arneso Pypitemplate Instance"
 authors = [{ name = "Arne Sørli", email = "arne.sorli@ssb.no" }]
+maintainers = [{ name = "Statistics Norway, IT-partner Department (703)" }]
 license = "MIT"
 readme = "README.md"
 requires-python = ">=3.10,<4.0"
-classifiers = [
-  "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: 3.13",
-  "License :: OSI Approved :: MIT License",
-  "Development Status :: 4 - Beta",
-  "Typing :: Typed",
-]
+dynamic = ["classifiers"]
 dependencies = [
     "click>=8.0.1",
 ]
@@ -29,27 +21,32 @@ Changelog = "https://github.com/arneso-ssb/arneso-pypitemplate-instance/releases
 [project.scripts]
 arneso-pypitemplate-instance = "arneso_pypitemplate_instance.__main__:main"
 
-[dependency-groups]
-dev = [
-    "pygments>=2.10.0",
-    "black[jupyter]>=23.1.0",
-    "coverage[toml]>=6.2",
-    "darglint>=1.8.1",
-    "furo>=2021.11.12",
-    "mypy>=0.930",
-    "pre-commit>=2.16.0",
-    "pre-commit-hooks>=4.1.0",
-    "ruff>=0.0.284",
-    "pytest>=6.2.5",
-    "sphinx>=6.2.1",
-    "sphinx-autobuild>=2021.3.14",
-    "sphinx-autodoc-typehints>=1.24.0",
-    "sphinx-click>=3.0.2",
-    "typeguard>=2.13.3",
-    "xdoctest[colors]>=0.15.10",
-    "myst-parser>=0.16.1",
-    "deptry>=0.23.0",
-]
+[tool.poetry]
+classifiers = ["Development Status :: 4 - Beta"]
+requires-poetry = ">=2.0"
+
+[tool.poetry.group.dev.dependencies]
+pygments = ">=2.10.0"
+black = { extras = ["jupyter"], version = ">=23.1.0" }
+coverage = { extras = ["toml"], version = ">=6.2" }
+darglint = ">=1.8.1"
+furo = ">=2021.11.12"
+mypy = ">=0.930"
+pre-commit = ">=2.16.0"
+pre-commit-hooks = ">=4.1.0"
+ruff = ">=0.0.284"
+pytest = ">=6.2.5"
+sphinx = ">=6.2.1"
+sphinx-autobuild = ">=2021.3.14"
+sphinx-autodoc-typehints = ">=1.24.0"
+sphinx-click = ">=3.0.2"
+typeguard = ">=2.13.3"
+xdoctest = { extras = ["colors"], version = ">=0.15.10" }
+myst-parser = { version = ">=0.16.1" }
+deptry = ">=0.23.0"
+
+[tool.poetry.requires-plugins]
+poetry-plugin-export = ">=1.9"
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
@@ -65,10 +62,10 @@ relative_files = true
 
 [tool.coverage.report]
 show_missing = true
-fail_under = 50
+fail_under = 80
 
 [tool.deptry.per_rule_ignores]
-DEP001 = ["nox"]  # packages available by default
+DEP001 = ["nox", "nox_poetry"]  # packages available by default
 
 [tool.mypy]
 strict = true
@@ -138,5 +135,5 @@ classmethod-decorators = ["classmethod", "validator", "root_validator", "pydanti
 ]
 
 [build-system]
-requires = ["uv_build>=0.8.0,<0.9"]
-build-backend = "uv_build"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
