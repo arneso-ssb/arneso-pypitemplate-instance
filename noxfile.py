@@ -140,7 +140,7 @@ def install_poetry_groups(session: Session, *groups: str) -> None:
         session.install("-r", requirements_path)
 
 
-@session(name="pre-commit", python=python_versions[1])
+@session(name="pre-commit", python=python_versions[0])
 def precommit(session: Session) -> None:
     """Lint using pre-commit."""
     args = session.posargs or [

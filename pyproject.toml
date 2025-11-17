@@ -46,7 +46,7 @@ doc = [
     "sphinx-click>=6.1.0; python_version >= '3.11'",
     "furo>=2025.9.25; python_version >= '3.11'",
     "myst-parser>=4.0.1; python_version >= '3.11'",
-] 
+]
 
 [tool.poetry]
 classifiers = ["Development Status :: 4 - Beta"]
