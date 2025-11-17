@@ -37,6 +37,26 @@ nox.options.sessions = (
 )
 
 
+def install_poetry_groups(session: Session, *groups: str) -> None:
+    """Install dependencies from poetry groups, pinned to poetry.lock
+
+    Using this as s workaround until this PR is merged in:
+    https://github.com/cjolowicz/nox-poetry/pull/1080
+    """
+    with tempfile.TemporaryDirectory() as tempdir:
+        requirements_path = os.path.join(tempdir, "requirements.txt")
+        session.run(
+            "poetry",
+            "export",
+            *[f"--only={group}" for group in groups],
+            "--format=requirements.txt",
+            "--without-hashes",
+            f"--output={requirements_path}",
+            external=True,
+        )
+        session.install("-r", requirements_path)
+
+
 def activate_virtualenv_in_precommit_hooks(session: Session) -> None:
     """Activate virtualenv in hooks installed by pre-commit.
 
@@ -118,26 +138,6 @@ def insert_header_in_hook(header: dict[str, str], lines: list[str]) -> str:
             lines.insert(1, dedent(header_text))
             return "\n".join(lines)
     return "\n".join(lines)
-
-
-def install_poetry_groups(session: Session, *groups: str) -> None:
-    """Install dependencies from poetry groups.
-
-    Using this as s workaround until this PR is merged in:
-    https://github.com/cjolowicz/nox-poetry/pull/1080
-    """
-    with tempfile.TemporaryDirectory() as tempdir:
-        requirements_path = os.path.join(tempdir, "requirements.txt")
-        session.run(
-            "poetry",
-            "export",
-            *[f"--only={group}" for group in groups],
-            "--format=requirements.txt",
-            "--without-hashes",
-            f"--output={requirements_path}",
-            external=True,
-        )
-        session.install("-r", requirements_path)
 
 
 @session(name="pre-commit", python=python_versions[0])
