@@ -1,5 +1,5 @@
 {
-  "_commit": "9e3c49f6680d4c400567c39d70b768f0a322c95e",
+  "_commit": "4e7bb50723c61d5721ade3c5eb6ad7351ade6787",
   "_copy_without_render": [
     "*.rst_t"
   ],
@@ -9,7 +9,7 @@
   },
   "_template": "https://github.com/statisticsnorway/ssb-pypitemplate.git",
   "author": "Arne S\u00f8rli",
-  "code_quality_level": "High",
+  "code_quality_level": "Medium",
   "copyright_owner": "Statistics Norway",
   "copyright_year": "2023",
   "department_number": "703",
@@ -21,5 +21,5 @@
   "license": "MIT",
   "package_name": "arneso_pypitemplate_instance",
   "project_name": "arneso-pypitemplate-instance",
-  "version": "0.0.0"
+  "version": "0.3.0"
 }
