@@ -40,7 +40,7 @@ nox.options.sessions = (
 def install_poetry_groups(session: Session, *groups: str) -> None:
     """Install dependencies from poetry groups, pinned to poetry.lock
 
-    Using this as s workaround until this PR is merged in:
+    Using this as a workaround until this PR is merged in:
     https://github.com/cjolowicz/nox-poetry/pull/1080
     """
     with tempfile.TemporaryDirectory() as tempdir:
