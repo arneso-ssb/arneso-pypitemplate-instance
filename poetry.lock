@@ -470,6 +470,7 @@ description = "A command line utility to check for unused, missing and transitiv
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
+markers = "python_version < \"4.0\""
 files = [
     {file = "deptry-0.24.0-cp39-abi3-macosx_10_12_x86_64.whl", hash = "sha256:a575880146bab671a62babb9825b85b4f1bda8aeaade4fcb59f9262caf91d6c7"},
     {file = "deptry-0.24.0-cp39-abi3-macosx_11_0_arm64.whl", hash = "sha256:00ec34b968a13c03a5268ce0211f891ace31851d916415e0a748fae9596c00d5"},
@@ -1509,6 +1510,7 @@ description = "This is a small Python module for parsing Pip requirement files."
 optional = false
 python-versions = "<4.0,>=3.8"
 groups = ["dev"]
+markers = "python_version < \"4.0\""
 files = [
     {file = "requirements_parser-0.13.0-py3-none-any.whl", hash = "sha256:2b3173faecf19ec5501971b7222d38f04cb45bb9d87d0ad629ca71e2e62ded14"},
     {file = "requirements_parser-0.13.0.tar.gz", hash = "sha256:0843119ca2cb2331de4eb31b10d70462e39ace698fd660a915c247d2301a4418"},
@@ -2202,5 +2204,5 @@ tests-strict = ["pytest (==4.6.0) ; python_version < \"3.10.0\" and python_versi
 
 [metadata]
 lock-version = "2.1"
-python-versions = ">=3.12,<4.0"
-content-hash = "e683c96fbc500209c109d177f98e8a395a5411ca6fca46095bc980d5943ca973"
+python-versions = ">=3.12"
+content-hash = "c799500faa3d357b4333b2ea5d5581cef71f24c1958199c20971de499f128884"
