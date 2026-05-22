@@ -40,12 +40,23 @@ jobs:
 
       - name: Check if there is a parent commit
         id: check-parent-commit
+        shell: bash
         run: |
-          echo "sha=$(git rev-parse --verify --quiet HEAD^)" >> $GITHUB_OUTPUT
+          set -euo pipefail
+
+          if git rev-parse --verify --quiet HEAD^ >/dev/null; then
+            echo "has-parent=true" >> "$GITHUB_OUTPUT"
+            echo "sha=$(git rev-parse --verify HEAD^)" >> "$GITHUB_OUTPUT"
+            echo "Parent commit detected: true"
+          else
+            echo "has-parent=false" >> "$GITHUB_OUTPUT"
+            echo "sha=" >> "$GITHUB_OUTPUT"
+            echo "Parent commit detected: false"
+          fi
 
       - name: Detect and tag new version
         id: check-version
-        if: steps.check-parent-commit.outputs.sha
+        if: steps.check-parent-commit.outputs.has-parent == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -98,7 +109,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          echo "DRY RUN: would push tag $TAG"
+          git tag -a "$TAG" -m "Released version $CURRENT_VERSION"
+          git push origin "$TAG"
 
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
