@@ -1,6 +1,6 @@
 [project]
 name = "arneso-pypitemplate-instance"
-version = "0.4.2"
+version = "0.4.3"
 description = "Arneso Pypitemplate Instance"
 authors = [{ name = "Arne Sørli", email = "arne.sorli@ssb.no" }]
 maintainers = [{ name = "Statistics Norway, IT-partner Department (703)" }]
