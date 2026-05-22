@@ -43,23 +43,6 @@ jobs:
         run: |
           echo "sha=$(git rev-parse --verify --quiet HEAD^)" >> $GITHUB_OUTPUT
 
-      - name: Debug
-        run: |
-          echo "Current commit:"
-          git rev-parse HEAD
-
-          echo "Parent commit:"
-          git rev-parse HEAD~1 || true
-
-          echo "Available tags:"
-          git tag --list | sort -V | tail -20
-
-          echo "Current pyproject.toml version:"
-          grep -E '^(version =|dynamic =)' pyproject.toml || true
-
-          echo "Previous pyproject.toml version:"
-          git show HEAD~1:pyproject.toml | grep -E '^(version =|dynamic =)' || true
-
       - name: Detect and tag new version
         id: check-version
         if: steps.check-parent-commit.outputs.sha
@@ -130,20 +113,20 @@ jobs:
         run: |
           poetry build --ansi
 
-#      - name: Publish package on PyPI
-#        if: steps.check-version.outputs.tag
-#        uses: pypa/gh-action-pypi-publish@cef221092ed1bacb1cc03d23a2d87d1d172e277b  #v1.14.0
-#
-#      - name: Publish package on TestPyPI
-#        if: (!steps.check-version.outputs.tag)
-#        uses: pypa/gh-action-pypi-publish@cef221092ed1bacb1cc03d23a2d87d1d172e277b  #v1.14.0
-#        with:
-#          repository-url: https://test.pypi.org/legacy/
-#
-#      - name: Publish the release notes
-#        uses: release-drafter/release-drafter@c2e2804cc59f45f57076a99af580d0fedb697927  #v7.3.0
-#        with:
-#          publish: ${{ steps.check-version.outputs.tag != '' }}
-#          tag: ${{ steps.check-version.outputs.tag }}
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish package on PyPI
+        if: steps.check-version.outputs.tag
+        uses: pypa/gh-action-pypi-publish@cef221092ed1bacb1cc03d23a2d87d1d172e277b  #v1.14.0
+
+      - name: Publish package on TestPyPI
+        if: (!steps.check-version.outputs.tag)
+        uses: pypa/gh-action-pypi-publish@cef221092ed1bacb1cc03d23a2d87d1d172e277b  #v1.14.0
+        with:
+          repository-url: https://test.pypi.org/legacy/
+
+      - name: Publish the release notes
+        uses: release-drafter/release-drafter@c2e2804cc59f45f57076a99af580d0fedb697927  #v7.3.0
+        with:
+          publish: ${{ steps.check-version.outputs.tag != '' }}
+          tag: ${{ steps.check-version.outputs.tag }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
