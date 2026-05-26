@@ -26,7 +26,7 @@
 
 ## Features
 
-- TODO2
+- TODO
 
 ## Requirements
 
