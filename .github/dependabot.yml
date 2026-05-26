@@ -29,10 +29,8 @@ updates:
     cooldown:
       default-days: 7
     versioning-strategy: lockfile-only
-    allow:
-      - dependency-type: "all"
     open-pull-requests-limit: 99
     groups:
-      poetry-dependencies:
+      python-dependencies:
         patterns:
           - "*"
